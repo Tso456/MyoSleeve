@@ -1,0 +1,38 @@
+#include <Wire.h> //Used for I2C
+
+void setup() {
+  Wire.begin();        // join i2c bus (address optional for master)
+  Serial.begin(9600);  // start serial for output
+}
+
+void loop() {
+    Read_IMU_Gyro();
+    Read_Strain_Gauge();
+
+    delay(500);
+}
+
+/*
+Reads gyro value from IMU
+*/
+void Read_IMU_Gyro(){
+    Wire.requestFrom(8, 6);    // request 6 bytes from peripheral device #8
+
+    while (Wire.available())
+    { // peripheral may send less than requested
+        char c = Wire.read(); // receive a byte as character
+        Serial.print(c);         // print the character
+    }
+}
+
+/*
+Reads and prints voltage value from strain gauge (which represents stretch sensor)
+*/
+void Read_Strain_Gauge(){
+  int sensorValue = analogRead(A0);
+
+  float voltage = sensorValue * (5.0 / 1023.0); //Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):
+  
+  Serial.println(voltage); //Print out the value you read:
+}
+
