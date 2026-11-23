@@ -6,6 +6,6 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.print("Thread 2!!!");
+  //Serial.print("Thread 2!!!");
   delay(1000);
 }
